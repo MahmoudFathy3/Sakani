@@ -8,7 +8,7 @@ import ComplexeEdit from "../pages/Complexes/ComplexeEdit";
 import Governorate from "../pages/Governorate/Governorate";
 import Users from "../pages/Users/Users";
 import UsersList from "../pages/Users/UsersList";
-import DetailsUser from "../pages/Users/detailsUser";
+import DetailsUser from "../pages/Users/DetailsUser";
 import UserEdit from "../pages/Users/UserEdit";
 import Buildings from "../pages/Buildings/Buildings";
 import BuildingsList from "../pages/Buildings/BuildingsList";
