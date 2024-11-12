@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import MainLayouts from "@layouts/mainLayouts";
+import MainLayouts from "../layouts/mainLayouts";
 import Home from "../pages/Home/Home";
 import Complexes from "../pages/Complexes/Complexes";
 import ComplexeLists from "../pages/Complexes/ComplexeLists";
