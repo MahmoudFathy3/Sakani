@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
 import FormComplaints from "@components/forms/Complaints/FormComplaints";
 import PathName from "@components/Housing-system/PathName/PathName";
-import { updateComplaint } from "@store/reducers/Complaints/ComplaintsSlice";
+import {
+  fetchComplaints,
+  updateComplaint,
+} from "@store/reducers/Complaints/ComplaintsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
-import Success from "@components/feedback/Success/Success";
 import { Helmet } from "react-helmet";
 
 const ComplaintEdit = () => {
-  const [success, setSuccess] = useState("");
-
   const { state } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,19 +20,17 @@ const ComplaintEdit = () => {
     dispatch(updateComplaint(data))
       .unwrap()
       .then(() => {
-        setSuccess("تم تعديل الشكوي بنجاح");
-        navigate(`/complaints/list`);
-        navigate(0);
+        dispatch(
+          fetchComplaints({ managementId: state.managementId, page: 0 })
+        );
+        navigate(`/complaints/list`, {
+          state: {
+            managementId: state.managementId,
+            message: "تم تعديل الشكوي بنجاح",
+          },
+        });
       });
   };
-
-  useEffect(() => {
-    if (success) {
-      setTimeout(() => {
-        setSuccess("");
-      }, 5000);
-    }
-  }, [success]);
 
   return (
     <section>
@@ -43,8 +40,6 @@ const ComplaintEdit = () => {
 
       <div className="section_content">
         <PathName path="تعديل" name="الشكاوي / " />
-
-        <Success message={success} />
 
         <FormComplaints
           onSubmit={onSubmit}

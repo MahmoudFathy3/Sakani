@@ -44,6 +44,9 @@ const ComplaintsList = () => {
     if (state?.managementId) {
       setManagementId(state?.managementId);
     }
+    if (state?.message) {
+      setSuccess(state?.message);
+    }
   }, [state]);
 
   const detailsItem = (item) => {
@@ -60,6 +63,7 @@ const ComplaintsList = () => {
 
         navigate(`/complaints/list/${item.id}/edit`, {
           state: {
+            managementId,
             item: {
               id: item.id,
               message: item.message,
@@ -80,7 +84,7 @@ const ComplaintsList = () => {
     dispatch(deleteComplaint(id))
       .unwrap()
       .then(() => {
-        dispatch(fetchComplaints());
+        dispatch(fetchComplaints({ managementId, unitId: unitId?.id, page }));
         setSuccess("تم الحذف الشكوي بنجاح");
       });
   };
