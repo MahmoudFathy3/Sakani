@@ -1,0 +1,79 @@
+.SliderImages {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(95% / 3), 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.SliderImages .SliderImages_info {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.SliderImages .SliderImages_info img {
+  width: 100%;
+  height: 200px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.SliderImages .SliderImages_info .slider_wapper {
+  padding-bottom: 20px;
+}
+
+.SliderImages .SliderImages_info .slider_wapper h3 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.SliderImages .SliderImages_info .slider_wapper p {
+  text-align: center;
+  padding: 5px;
+  color: #666;
+}
+
+.SliderImages .SliderImages_info .slider_buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  padding-bottom: 20px;
+  margin-top: auto;
+}
+
+.SliderImages .SliderImages_info .slider_buttons button {
+  padding: 8px 20px;
+  color: var(--text-white);
+  border: none;
+  border-radius: 5px;
+  font-family: var(--font-family);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.SliderImages .SliderImages_info .slider_buttons button:first-of-type {
+  background-color: var(--color-primary);
+}
+
+.SliderImages .SliderImages_info .slider_buttons button:last-of-type {
+  background-color: var(--bg-sidebar);
+}
+
+/*  Save */
+.Save {
+  padding: 40px;
+  text-align: left;
+}
+
+.Save button {
+  width: 8%;
+  height: 50px;
+  background-color: #133e87;
+  color: var(--text-white);
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

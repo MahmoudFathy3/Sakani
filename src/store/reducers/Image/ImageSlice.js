@@ -37,8 +37,51 @@ export const createImage = createAsyncThunk(
       );
       return res.data;
     } catch (err) {
-      console.log(err.response.data);
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 
+// update an Image
+export const updateImage = createAsyncThunk(
+  "image/updateImage",
+  async (image, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await axios.put(
+        `${
+          import.meta.env.VITE_WEBSITE_API_URL
+        }/SliderImage/UpdateImageInSlider`,
+        image,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+// delete single Slider
+export const deleteSlider = createAsyncThunk(
+  "image/deleteSlider",
+  async (slider, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    console.log(slider);
+    
+    try {
+      const res = await axios.post(
+        `${
+          import.meta.env.VITE_WEBSITE_API_URL
+        }/SliderImage/DeleteImageInSlider`,
+        slider
+      );
+      return res.data;
+    } catch (err) {
       return rejectWithValue(err.response.data);
     }
   }
@@ -81,6 +124,25 @@ const ImageSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       });
+
+    // update an image
+    builder
+      .addCase(updateImage.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateImage.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updateImage.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
+
+    // delete a slider
+    builder.addCase(deleteSlider.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
   },
 });
 

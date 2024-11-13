@@ -1,66 +1,32 @@
 import styles from "@styles/forms.module.css";
 import PropTypes from "prop-types";
-import { Box, FormControl, FormLabel, TextField } from "@mui/material";
-import Select from "@components/Housing-system/Select/Select";
+import { Box, FormControl, FormLabel } from "@mui/material";
 import FormControlls from "@components/Housing-system/FormControlls/FormControlls";
 import FormButtons from "@components/Housing-system/FormButtons/FormButtons";
 import { onReset } from "@utils/onReset";
 import Status from "@components/Housing-system/Select/Shared/Status/Status";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { fetchUsers } from "@store/reducers/Users/UsersSlice";
+import { useState } from "react";
 
 const FormComplaints = ({ onSubmit, complaint, reset, edit, isLoading }) => {
-  const [userName, setUserName] = useState("");
-  const [complaintDocs_imgs, seComplaintDocsImgs] = useState([]);
-  const dispatch = useDispatch();
-
-  const { users } = useSelector((state) => state.users);
-
-  useEffect(() => {
-    dispatch(fetchUsers(0));
-  }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (complaint?.complaintDocs) {
-  //     seComplaintDocsImgs((prev) => [
-  //       ...prev,
-  //       complaint?.complaintDocs.map((doc) => doc.mediaUrl),
-  //     ]);
-  //   }
-  // }, [complaint]);
-
-  // console.log(complaintDocs_imgs);
+  const [userName, setUserName] = useState(complaint?.item?.userName || "");
+  const [statusId, setStatusId] = useState();
 
   const handlerSubmitted = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData);
 
-    let complaints = {
-      fileName: data.fileName,
-      subject: data.subject,
-      file: data.file,
-      status: data.status,
-      message: data.message,
-    };
+    let complaints = {};
 
-    if (edit) complaints.id = complaint.id;
+    if (statusId >= 0) {
+      complaints.status = statusId;
+    } else {
+      complaints.status = complaint.item.status >= 0 && complaint.item.status;
+    }
 
-    console.log(complaints);
+    if (edit) complaints.id = complaint.item.id;
 
     onSubmit(complaints);
     onReset(e.currentTarget.reset());
   };
-
-  useEffect(() => {
-    if (users?.data?.length > 0) {
-      setUserName(
-        users?.data?.find((user) => user.id == complaint?.userId)?.fullName ||
-          ""
-      );
-    }
-  }, [users, complaint]);
 
   return (
     <Box component={"form"} onSubmit={handlerSubmitted} className={styles.form}>
@@ -70,22 +36,26 @@ const FormComplaints = ({ onSubmit, complaint, reset, edit, isLoading }) => {
           label="اسم المستخدم"
           type="text"
           fullWidth
-          required={true}
+          required={edit ? false : true}
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
+          disabled={edit}
         />
         <FormControlls
           id="subject"
           label="عنوان الشياكة"
           type="text"
           fullWidth
-          required={true}
-          defaultValue={complaint?.subject}
+          required={edit ? false : true}
+          defaultValue={complaint?.item?.subject}
+          disabled={edit}
         />
         <Status
           id="status"
           label="حالة الشكاوي"
-          defaultValue={complaint?.status}
+          defaultValue={complaint?.item?.status}
+          required={true}
+          setStatusID={setStatusId}
         />
       </div>
       <div className={styles.Complaints}>
@@ -95,16 +65,18 @@ const FormComplaints = ({ onSubmit, complaint, reset, edit, isLoading }) => {
           type="file"
           fullWidth
           required={edit ? false : true}
+          disabled={edit}
         />
         <FormControl sx={{ gap: 1, width: "100%" }}>
           <FormLabel htmlFor="message">
-            الشكوي<span style={{ color: "red" }}>*</span>
+            الشكوي {!edit && <span style={{ color: "red" }}>*</span>}
           </FormLabel>
           <textarea
             id="message"
             name="message"
-            required
-            defaultValue={complaint?.message}
+            required={edit ? false : true}
+            defaultValue={complaint?.item?.message}
+            disabled={edit}
           ></textarea>
         </FormControl>
       </div>

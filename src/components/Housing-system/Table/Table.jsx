@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import "./Table.module.css";
+import "./Table.css";
 
 const Table = ({ Column, children }) => {
   return (

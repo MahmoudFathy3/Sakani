@@ -17,6 +17,7 @@ import Complexe from "@components/Housing-system/Select/Shared/Complexe/Complexe
 import { fetchUnitByManagementID } from "@store/reducers/Units/UnitsSlice";
 import Select from "@components/Housing-system/Select/Select";
 import { Helmet } from "react-helmet";
+import { fetchUsers } from "@store/reducers/Users/UsersSlice";
 
 const ComplaintsList = () => {
   const [page, setPage] = useState(1);
@@ -52,9 +53,27 @@ const ComplaintsList = () => {
   };
 
   const editItem = (item) => {
-    navigate(`/complaints/list/${item.id}/edit`, {
-      state: item,
-    });
+    dispatch(fetchUsers(0))
+      .unwrap()
+      .then((user) => {
+        console.log(user);
+
+        navigate(`/complaints/list/${item.id}/edit`, {
+          state: {
+            item: {
+              id: item.id,
+              message: item.message,
+              status: item.status,
+              subject: item.subject,
+              unitId: item.unitId,
+              userId: item.userId,
+              userName: user?.data?.find((user) => user.id === item.userId)
+                ?.fullName,
+              complaintDocs: item.complaintDocs,
+            },
+          },
+        });
+      });
   };
 
   const onDelete = (id) => {

@@ -1,7 +1,8 @@
 import Header from "@components/common/Header/Header";
 import Sidebar from "@components/common/Sidebar/Sidebar";
-import { CheckRoles } from "@utils/CheckRoles";
 import { UserData } from "@utils/UserData";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Navigate, Outlet } from "react-router-dom";
@@ -15,9 +16,11 @@ const MainLayouts = () => {
     return <Navigate to="/login" replace />;
   }
 
-  console.log(user);
-  
-  // console.log(CheckRoles("Owner"));
+  if (user?.roles[0] === "User") {
+    Cookies.remove("user");
+    axios.defaults.headers.common["Authorization"] = "";
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <div className="container">

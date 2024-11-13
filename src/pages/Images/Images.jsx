@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useOutletContext } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { CheckRoles } from "@utils/CheckRoles";
+import Error from "@components/feedback/Error/Error";
 
 const Images = () => {
   const [success, setSuccess] = useState("");
@@ -16,6 +17,8 @@ const Images = () => {
   const { error, isLoading } = useSelector((state) => state.images);
 
   const onSubmit = (data) => {
+    console.log(data);
+
     dispatch(createImage(data))
       .unwrap()
       .then(() => {
@@ -30,7 +33,7 @@ const Images = () => {
       }, 5000);
     }
 
-    if (error?.errors) {
+    if (error?.errors || error?.message) {
       setTimeout(() => {
         dispatch(clearError());
       }, 5000);
@@ -40,6 +43,8 @@ const Images = () => {
   if (!CheckRoles("ManagementOwner")) {
     return <Navigate to={"*"} replace />;
   }
+
+  console.log(error);
 
   return (
     <section>
@@ -59,6 +64,8 @@ const Images = () => {
             ))}
           </div>
         )}
+
+        {error?.message && <Error message={error.message} />}
 
         <Success message={success} />
 

@@ -5,9 +5,6 @@ import { FaRegBuilding, FaUserAlt } from "react-icons/fa";
 import { FaBuildingUser } from "react-icons/fa6";
 
 const Statistics = ({ data }) => {
-
-  console.log(data);
-  
   return (
     <div className={styles.Statistics}>
       <div className={styles.Stats_element}>

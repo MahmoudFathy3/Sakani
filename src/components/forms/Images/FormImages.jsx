@@ -7,26 +7,26 @@ import { onReset } from "@utils/onReset";
 import { useState } from "react";
 import Complexe from "@components/Housing-system/Select/Shared/Complexe/Complexe";
 
-const FormImages = ({ onSubmit, reset, data, edit, isLoading }) => {
+const FormImages = ({ onSubmit, reset, data, edit, isLoading, closeEdit }) => {
   const [ManagementId, setManagementId] = useState("");
-  const [images, setImages] = useState([]);
 
   const handlerSubmitted = (event) => {
     event.preventDefault();
     let Image = {
       Title: event.target.title.value,
-      ManagementId: ManagementId,
+      ManagementId: ManagementId || data.managementId,
       Description: event.target.description.value,
-      ImageUrl: event.target.ImageUrl.files[0],
     };
 
-    // console.log(event.target.ImageUrl.files[0]);
+    if (event.target.ImageUrl.files[0]?.name)
+      Image.ImageUrl = event.target.ImageUrl.files[0];
+
+    if (edit) Image.id = data.sliderImage.id;
+    if (edit) Image.order = data.sliderImage.order;
 
     onSubmit(Image);
-    // onReset(event.currentTarget.reset());
+    onReset(event.currentTarget.reset());
   };
-
-  // console.log(images);
 
   return (
     <Box component={"form"} onSubmit={handlerSubmitted} className={styles.form}>
@@ -37,7 +37,7 @@ const FormImages = ({ onSubmit, reset, data, edit, isLoading }) => {
           type="text"
           fullWidth
           required={true}
-          defaultValue={data?.title}
+          defaultValue={data?.sliderImage?.title}
         />
 
         <Complexe
@@ -53,7 +53,7 @@ const FormImages = ({ onSubmit, reset, data, edit, isLoading }) => {
           type="text"
           fullWidth
           required={true}
-          defaultValue={data?.description}
+          defaultValue={data?.sliderImage?.description}
         />
 
         <FormControlls
@@ -62,11 +62,10 @@ const FormImages = ({ onSubmit, reset, data, edit, isLoading }) => {
           type="file"
           fullWidth
           required={edit ? false : true}
-          onChange={(e) => setImages((prev) => [...prev, e.target.files[0]])}
         />
       </div>
       <FormButtons
-        onReset={reset && onReset}
+        onReset={reset ? onReset : () => closeEdit()}
         edit={edit}
         isLoading={isLoading}
       />
@@ -80,6 +79,7 @@ FormImages.propTypes = {
   data: PropTypes.object,
   edit: PropTypes.bool,
   isLoading: PropTypes.bool,
+  closeEdit: PropTypes.func,
 };
 
 export default FormImages;

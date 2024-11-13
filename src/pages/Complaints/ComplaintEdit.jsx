@@ -3,7 +3,7 @@ import FormComplaints from "@components/forms/Complaints/FormComplaints";
 import PathName from "@components/Housing-system/PathName/PathName";
 import { updateComplaint } from "@store/reducers/Complaints/ComplaintsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useOutletContext } from "react-router-dom";
+import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import Success from "@components/feedback/Success/Success";
 import { Helmet } from "react-helmet";
 
@@ -12,6 +12,7 @@ const ComplaintEdit = () => {
 
   const { state } = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const context = useOutletContext();
 
   const { isLoading } = useSelector((state) => state.complaints);
@@ -21,10 +22,10 @@ const ComplaintEdit = () => {
       .unwrap()
       .then(() => {
         setSuccess("تم تعديل الشكوي بنجاح");
+        navigate(`/complaints/list`);
+        navigate(0);
       });
   };
-
-  console.log(state);
 
   useEffect(() => {
     if (success) {

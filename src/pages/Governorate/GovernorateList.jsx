@@ -38,7 +38,7 @@ const GovernorateList = () => {
     dispatch(deleteGovernorate(id))
       .unwrap()
       .then(() => {
-        dispatch(fetchGovernorates());
+        dispatch(fetchGovernorates(page));
         setSuccess("تم الحذف بنجاح");
       });
   };
