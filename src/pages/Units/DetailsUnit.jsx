@@ -1,11 +1,10 @@
 import PathName from "@components/Housing-system/PathName/PathName";
 import styles from "@styles/Page.module.css";
-import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 
 const DetailsUnit = () => {
-  const [unitStatus, setUnitStatus] = useState([
+  const unitStatus = [
     { id: 0, label: "USNull" },
     { id: 1, label: "Sold" },
     { id: 2, label: "UnSold" },
@@ -13,7 +12,7 @@ const DetailsUnit = () => {
     { id: 4, label: "Rejected" },
     { id: 5, label: "LoanRejected" },
     { id: 6, label: "Requested" },
-  ]);
+  ];
 
   const { state } = useLocation();
   const navigate = useNavigate();

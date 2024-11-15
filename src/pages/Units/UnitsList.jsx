@@ -55,8 +55,6 @@ const UnitsList = () => {
     }
   }, [success]);
 
-  console.log(units);
-
   return (
     <section>
       <Helmet>

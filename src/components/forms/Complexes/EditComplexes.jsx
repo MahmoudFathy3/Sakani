@@ -13,7 +13,6 @@ const EditComplexes = ({ onSubmit, complexe }) => {
   const [TypeInvoiceId, setTypeInvoiceID] = useState("");
   const [stateID, setStateID] = useState("");
 
-
   const HandlerSubmitted = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -126,20 +125,6 @@ const EditComplexes = ({ onSubmit, complexe }) => {
           defaultValue={complexe?.invoiceCalculationType}
           setStateId={setTypeInvoiceID}
         />
-        {/* <Select
-          id="invoiceCalculationType"
-          label="نوع العمولة"
-          options={[
-            { id: 1, label: "Percentage" },
-            { id: 2, label: "FixedAmount" },
-          ]}
-          required={true}
-          setState={setTypeInvoiceID}
-          defaultValue={
-            (complexe?.invoiceCalculationType === 1 && "Percentage") ||
-            (complexe?.invoiceCalculationType === 2 && "FixedAmount")
-          }
-        /> */}
         <FormControlls
           id="invoiceCommission"
           label="قيمة العمولة"

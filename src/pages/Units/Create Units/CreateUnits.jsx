@@ -2,6 +2,7 @@ import Success from "@components/feedback/Success/Success";
 import Loading from "@components/Housing-system/Loading/Loading";
 import PathName from "@components/Housing-system/PathName/PathName";
 import { Button, IconButton } from "@mui/material";
+import { fetchComplexeUser } from "@store/reducers/Complexes/ComplexeSlice";
 import { CreateUnitsPatchAsync } from "@store/reducers/Units/UnitsSlice";
 import styles from "@styles/Page.module.css";
 import { CheckRoles } from "@utils/CheckRoles";
@@ -97,6 +98,8 @@ const CreateUnits = () => {
     )
       .unwrap()
       .then(() => {
+        dispatch(fetchComplexeUser());
+        navigate(`/units/management`);
         setSuccess("تم انشاء الوحدات");
       });
   };

@@ -22,8 +22,6 @@ const InvoiceCalculationType = ({ setStateId, defaultValue }) => {
     if (value?.id) setStateId(value?.id);
   }, [value, setStateId]);
 
-  console.log(value);
-
   return (
     <Select
       id="invoiceCalculationType"
