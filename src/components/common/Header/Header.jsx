@@ -5,10 +5,11 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { IconButton } from "@mui/material";
 import Avatar from "@assets/images/Avatar.jpg";
 import { UserData } from "@utils/UserData";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ openSidebar }) => {
   const User = UserData();
-
+  const navigate = useNavigate();
 
   return (
     <header className={styles.Header}>
@@ -18,18 +19,28 @@ const Header = ({ openSidebar }) => {
         </IconButton>
 
         <div className={styles.header_info}>
-          <IconButton>
+          <IconButton onClick={() => navigate("/notifications/list")}>
             <div className={styles.Notification}>
               <IoNotificationsOutline size={25} />
-              <span>3</span>
+              {/* <span>3</span> */}
             </div>
           </IconButton>
           <div className={styles.infoUser}>
             <div className={styles.infoUser_title}>
               <h4>{User?.fullName}</h4>
-              <span>Founder</span>
+              <span>{User?.roles[0]}</span>
             </div>
-            <img src={Avatar} loading="lazy" alt="Avatar" />
+            <img
+              src={
+                User?.imageUrl
+                  ? `${import.meta.env.VITE_WEBSITE_API_URL_image}${
+                      User?.imageUrl
+                    }`
+                  : Avatar
+              }
+              loading="lazy"
+              alt="Avatar"
+            />
           </div>
         </div>
       </div>

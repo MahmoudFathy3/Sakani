@@ -34,6 +34,8 @@ const InvoicesList = () => {
     }
   }, [state]);
 
+  console.log(state);
+
   useEffect(() => {
     if (complexe_id) {
       dispatch(fetchInvoices({ ManagementId: complexe_id, page }));
@@ -42,13 +44,13 @@ const InvoicesList = () => {
     }
   }, [dispatch, page, complexe_id]);
 
+  console.log(complexe_id);
+
   const detailsItem = (item) => {
     navigate(`/invoices/list/${item.id}/details`, {
       state: item,
     });
   };
-
-  console.log(complexe_id);
 
   const editItem = (item) => {
     navigate(`/invoices/list/${item.id}/edit`, {
@@ -56,7 +58,13 @@ const InvoicesList = () => {
     });
   };
 
-  const onDelete = (id) => {};
+  // const onDelete = (id) => {};
+
+  let unit = unitByManagementId?.data?.find(
+    (unit) => unit.id === state?.item?.unitId
+  );
+
+  console.log(invoices?.data);
 
   return (
     <section>
@@ -94,18 +102,27 @@ const InvoicesList = () => {
                     }
                   </td>
                   <td>
-                    {
+                    {`${
                       unitByManagementId?.data?.find(
                         (unit) => unit.id === row.unitId
                       )?.unitPrefix
-                    }
+                    } - ${
+                      unitByManagementId?.data?.find(
+                        (unit) => unit.id === row.unitId
+                      )?.unitNumber
+                    } - ${
+                      unitByManagementId?.data?.find(
+                        (unit) => unit.id === row.unitId
+                      )?.unitFloorNumber
+                    } `}
                   </td>
                   <td>{row.invoiceDescription}</td>
                   <td>
-                    {row.invoiceType === 1 && "Partial"}
-                    {row.invoiceType === 2 && "Total"}
+                    {row.invoiceType === 0 && "لشهر واحد"}
+                    {row.invoiceType === 1 && "تكرار لكل شهر"}
                   </td>
                   <td>{row.invoiceData}</td>
+                  <td>{row.isPaid ? "مدفوعة" : "غير مدفوعة"}</td>
                   <td>{row.totalPrice}</td>
                   <td>
                     <ActionTable
@@ -117,16 +134,19 @@ const InvoicesList = () => {
                           invoiceType: row.invoiceType,
                           invoiceData: row.invoiceData,
                           totalPrice: row.totalPrice,
+                          isPaid: row.isPaid,
                           unitId: unitByManagementId?.data?.find(
                             (unit) => unit.id === row.unitId
                           )?.unitPrefix,
-                          managementId: complexes?.data?.find(
+                          managementName: complexes?.data?.find(
                             (complexe) => complexe.id === complexe_id
                           )?.name,
+                          managementId: complexe_id,
                         })
                       }
                       editItem={() => editItem(row)}
-                      deleteItem={() => onDelete(row.id)}
+                      deleteItem={() => ""}
+                      hideDelete={true}
                     />
                   </td>
                 </tr>

@@ -10,13 +10,13 @@ import PropTypes from "prop-types";
 const DateTime = ({ defaultValue }) => {
   const [value, setValue] = useState(dayjs());
 
-  console.log(defaultValue);
-
   useEffect(() => {
     if (defaultValue) {
       setValue(dayjs(defaultValue));
     }
   }, [defaultValue]);
+
+  "18/3/2024T00:00:00"
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>

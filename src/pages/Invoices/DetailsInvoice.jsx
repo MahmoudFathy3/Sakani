@@ -25,7 +25,7 @@ const DetailsInvoice = () => {
             </div>
             <div className={styles.details_info}>
               <h3>اسم المجمع :</h3>
-              <span>{state.managementId}</span>
+              <span>{state.managementName}</span>
             </div>
             <div className={styles.details_info}>
               <h3>اسم الوحدة :</h3>
@@ -38,8 +38,8 @@ const DetailsInvoice = () => {
             <div className={styles.details_info}>
               <h3> نوع الفاتورة :</h3>
               <span>
-                {state.invoiceType === 1 && "Partial"}
-                {state.invoiceType === 2 && "Total"}
+                {state.invoiceType === 0 && "لشهر واحد"}
+                {state.invoiceType === 1 && "تكرار لكل شهر"}
               </span>
             </div>
             <div className={styles.details_info}>
@@ -47,12 +47,26 @@ const DetailsInvoice = () => {
               <span>{state.invoiceData}</span>
             </div>
             <div className={styles.details_info}>
+              <h3> حالة الفاتورة :</h3>
+              <span>{state.isPaid ? "مدفوعة" : "غير مدفوعة"}</span>
+            </div>
+            <div className={styles.details_info}>
               <h3> سعر الفاتورة :</h3>
               <span>{state.totalPrice}</span>
             </div>
           </div>
 
-          <button onClick={() => navigate("/invoices/list")}>عودة</button>
+          <button
+            onClick={() =>
+              navigate("/invoices/list", {
+                state: {
+                  managementId: state.managementId,
+                },
+              })
+            }
+          >
+            عودة
+          </button>
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "@styles/Page.module.css";
-import { Navigate, useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import ActionTable from "@components/Housing-system/ActionTable/ActionTable";
 import PathName from "@components/Housing-system/PathName/PathName";
 import Search from "@components/Housing-system/Search/Search";
@@ -14,7 +14,6 @@ import {
 import Tabel_Pagination from "@components/Housing-system/Table/Pagination/Pagination";
 import Success from "@components/feedback/Success/Success";
 import { Helmet } from "react-helmet";
-import { CheckRoles } from "@utils/CheckRoles";
 
 const NotificationList = () => {
   const [page, setPage] = useState(1);
@@ -50,10 +49,6 @@ const NotificationList = () => {
         setSuccess("تم الحذف بنجاح");
       });
   };
-
-  if (!CheckRoles("SuperAdmin")) {
-    return <Navigate to={"*"} replace />;
-  }
 
   return (
     <section>

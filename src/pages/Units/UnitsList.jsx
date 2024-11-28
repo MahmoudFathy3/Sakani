@@ -74,7 +74,7 @@ const UnitsList = () => {
             {units?.data?.map((row, index) => (
               <tr key={row.id}>
                 <td>{index + 1}</td>
-                <td>{row.managementId}</td>
+                <td>{row.managementName}</td>
                 <td>{row.unitPrefix}</td>
                 <td>{row.unitNumber}</td>
                 <td>{row.unitType}</td>

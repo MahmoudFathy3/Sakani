@@ -69,15 +69,19 @@ const ImagesList = () => {
                   }
                 </td>
                 <td>
-                  <img
-                    src={`${import.meta.env.VITE_WEBSITE_API_URL_image}/${
-                      row.imageInSliders[0].imageUrl
-                    }`}
-                    alt="Slider_Image"
-                    loading="lazy"
-                    width={80}
-                    height={80}
-                  />
+                  {row.imageInSliders?.map((image, index) => (
+                    <img
+                      key={index}
+                      src={`${import.meta.env.VITE_WEBSITE_API_URL_image}/${
+                        image.imageUrl
+                      }`}
+                      alt="Slider_Image"
+                      loading="lazy"
+                      width={80}
+                      height={80}
+                      style={{ marginLeft: "10px" }}
+                    />
+                  ))}
                 </td>
                 <td>
                   <ActionTable
@@ -92,6 +96,7 @@ const ImagesList = () => {
                     }
                     editItem={() => editItem(row)}
                     deleteItem={() => ""}
+                    hideDelete={true}
                   />
                 </td>
               </tr>

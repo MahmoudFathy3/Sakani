@@ -31,6 +31,10 @@ const DetailsUnit = () => {
           <div className={styles.details_wapper}>
             <div className={styles.details_info}>
               <h3>اسم المجمع :</h3>
+              <span>{state.managementName}</span>
+            </div>
+            <div className={styles.details_info}>
+              <h3>اسم المبني :</h3>
               <span>{state.unitPrefix}</span>
             </div>
             <div className={styles.details_info}>

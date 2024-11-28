@@ -1,16 +1,10 @@
 import PathName from "@components/Housing-system/PathName/PathName";
 import { fetchUsers } from "@store/reducers/Users/UsersSlice";
 import styles from "@styles/Page.module.css";
-import { CheckRoles } from "@utils/CheckRoles";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useOutletContext,
-} from "react-router-dom";
+import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 
 const DetailsNotification = () => {
   const { state } = useLocation();
@@ -23,10 +17,6 @@ const DetailsNotification = () => {
   useEffect(() => {
     dispatch(fetchUsers(0));
   }, [dispatch]);
-
-  if (!CheckRoles("SuperAdmin")) {
-    return <Navigate to={"*"} replace />;
-  }
 
   return (
     <section>

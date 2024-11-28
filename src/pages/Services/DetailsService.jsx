@@ -14,7 +14,7 @@ const DetailsService = () => {
   const { complexes } = useSelector((state) => state.complexes);
 
   useEffect(() => {
-    dispatch(fetchComplexes());
+    dispatch(fetchComplexes(0));
   }, [dispatch]);
 
   if (!CheckRoles("ManagementOwner")) {

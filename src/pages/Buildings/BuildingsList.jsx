@@ -14,6 +14,7 @@ import {
 import Tabel_Pagination from "@components/Housing-system/Table/Pagination/Pagination";
 import Success from "@components/feedback/Success/Success";
 import { Helmet } from "react-helmet";
+import { fetchComplexes } from "@store/reducers/Complexes/ComplexeSlice";
 
 const BuildingsList = () => {
   const [page, setPage] = useState(1);
@@ -24,9 +25,11 @@ const BuildingsList = () => {
   const context = useOutletContext();
 
   const { buildings } = useSelector((state) => state.buildings);
+  const { complexes } = useSelector((state) => state.complexes);
 
   useEffect(() => {
     dispatch(fetchBuildings(page));
+    dispatch(fetchComplexes(0));
   }, [dispatch, page]);
 
   const detailsItem = (item) => {
@@ -77,7 +80,13 @@ const BuildingsList = () => {
             {buildings?.data?.map((row, index) => (
               <tr key={row.id}>
                 <td>{index + 1}</td>
-                <td>{row.managementId}</td>
+                <td>
+                  {
+                    complexes?.data?.find(
+                      (complexe) => complexe.id === row.managementId
+                    )?.name
+                  }
+                </td>
                 <td>{row.name}</td>
                 <td>{row.totalFloor}</td>
                 <td>{row.unitPerFloor}</td>

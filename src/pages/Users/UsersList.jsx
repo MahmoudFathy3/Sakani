@@ -74,6 +74,7 @@ const UsersList = () => {
             {users?.data?.map((row, index) => (
               <tr key={row.id}>
                 <td>{index + 1}</td>
+                <td>{row.userName}</td>
                 <td>{row.fullName}</td>
                 <td>
                   {row.status === 0 && "بدون قيمة"}

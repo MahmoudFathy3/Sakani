@@ -78,8 +78,10 @@ const FormInvoices = ({ onSubmit, data, reset, edit }) => {
     let Invoice = {
       invoiceTitle: title || data?.invoice?.invoiceTitle,
       invoiceDescription: data2.invoiceDescription,
-      invoiceData: data2.invoiceData,
-      invoiceType: invoice_type.id || invoice_type,
+      invoiceData: `${
+        data2.invoiceData
+      }T${new Date().getHours()}:${new Date().getMinutes()}`,
+      invoiceType: invoice_type?.id >= 0 ? invoice_type?.id : invoice_type,
       invoiceItems: invoice_service,
       managementId: complexe_id,
       unitId: unit_id.id || unit_id,
@@ -158,32 +160,31 @@ const FormInvoices = ({ onSubmit, data, reset, edit }) => {
                 defaultValue={data?.invoice?.invoiceDescription}
               />
 
-              <DateTime defaultValue={data?.invoice?.invoiceData} />
+              {/* <DateTime defaultValue={data?.invoice?.invoiceData} /> */}
 
-              {/* <FormControlls
+              <FormControlls
                 id="invoiceData"
                 label="تاريخ الفاتورة"
                 type="date"
                 fullWidth
                 required={true}
-                defaultValue={data?.invoice?.invoiceData}
-              /> */}
+                defaultValue={new Date().toISOString().slice(0, 10)}
+              />
+
               {!edit && (
                 <Select
                   id="invoiceType"
                   label="نوع الفاتورة"
                   disabled={edit ? true : false}
                   options={[
-                    { id: 1, label: "Partial" },
-                    { id: 2, label: "Total" },
+                    { id: 0, label: "لشهر واحد" },
+                    { id: 1, label: "تكرار لكل شهر" },
                   ]}
                   required={true}
                   value={
-                    (invoice_type?.id
-                      ? invoice_type?.id === 1
-                        ? "Partial"
-                        : "Total"
-                      : "Choose type") || invoice_type?.label
+                    (invoice_type?.id === 0 && "لشهر واحد") ||
+                    (invoice_type?.id === 1 && "تكرار لكل شهر") ||
+                    "Choose type"
                   }
                   setState={setInvoiceType}
                 />

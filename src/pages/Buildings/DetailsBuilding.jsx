@@ -2,11 +2,22 @@ import styles from "@styles/Page.module.css";
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import PathName from "@components/Housing-system/PathName/PathName";
 import { Helmet } from "react-helmet";
+import { useEffect } from "react";
+import { fetchComplexes } from "@store/reducers/Complexes/ComplexeSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const DetailsBuilding = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const context = useOutletContext();
+
+  const { complexes } = useSelector((state) => state.complexes);
+
+  useEffect(() => {
+    dispatch(fetchComplexes(0));
+  }, [dispatch]);
 
   return (
     <section>
@@ -21,7 +32,13 @@ const DetailsBuilding = () => {
           <div className={styles.details_wapper}>
             <div className={styles.details_info}>
               <h3>اسم المجمع :</h3>
-              <span>{state.managementId}</span>
+              <span>
+                {
+                  complexes?.data?.find(
+                    (complexe) => complexe.id === state.managementId
+                  )?.name
+                }
+              </span>
             </div>
             <div className={styles.details_info}>
               <h3>اسم المبني :</h3>

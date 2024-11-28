@@ -20,6 +20,10 @@ const DetailsComplaint = () => {
     setStoreManagementId({ managementId: state?.managementId });
   }, [dispatch, state]);
 
+  let unit = unitByManagementId?.data?.find(
+    (unit) => unit.id === state?.item?.unitId
+  );
+
   return (
     <section>
       <Helmet>
@@ -37,13 +41,7 @@ const DetailsComplaint = () => {
             </div>
             <div className={styles.details_info}>
               <h3> الوحدة :</h3>
-              <span>
-                {
-                  unitByManagementId?.data?.find(
-                    (unit) => unit.id === state?.item?.unitId
-                  )?.unitPrefix
-                }
-              </span>
+              <span>{`${unit?.unitPrefix} - ${unit?.unitNumber} - ${unit?.unitFloorNumber}`}</span>
             </div>
             <div className={styles.details_info}>
               <h3> رسالة الشكوي :</h3>

@@ -272,7 +272,7 @@ const Sidebar = () => {
             onClick={DropMenu}
           >
             <MdOutlineHomeRepairService size={25} />
-            <li>صانعة</li>
+            <li>الحرفة</li>
             {activeItem === "crafts" ? (
               <FaAngleDown className={styles.icon} />
             ) : (

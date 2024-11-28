@@ -24,8 +24,6 @@ const InvoiceEdit = () => {
     }
   }, [dispatch, state]);
 
-  useEffect(() => {}, []);
-
   const onSubmit = (data) => {
     dispatch(updateInvoice(data))
       .unwrap()

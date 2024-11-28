@@ -22,12 +22,8 @@ const BuildingForComplexe = ({
   }, [dispatch, complexe_id]);
 
   useEffect(() => {
-    if (defaultValue) {
-      setValue(
-        buildForComplexe?.data?.find(
-          (build) => build.buildingId === defaultValue
-        )?.buildingName || ""
-      );
+    if (defaultValue && buildForComplexe?.data?.length > 0) {
+      setValue(buildForComplexe?.data?.find((build) => build)?.buildingName);
     }
   }, [defaultValue, buildForComplexe]);
 
@@ -36,6 +32,9 @@ const BuildingForComplexe = ({
       setState(value?.id);
     }
   }, [value, setState]);
+
+  // console.log(buildForComplexe?.data);
+  console.log(value);
 
   return (
     <Select

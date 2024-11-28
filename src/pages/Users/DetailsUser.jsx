@@ -21,7 +21,15 @@ const DetailsUser = () => {
           <div className={styles.details_wapper}>
             <div className={styles.details_info}>
               <h3>اسم المستخدم :</h3>
+              <span>{state.userName}</span>
+            </div>
+            <div className={styles.details_info}>
+              <h3>الاسم بالكامل :</h3>
               <span>{state.fullName}</span>
+            </div>
+            <div className={styles.details_info}>
+              <h3> رقم الهاتف :</h3>
+              <span>{state.phoneNumber}</span>
             </div>
             <div className={styles.details_info}>
               <h3> الحالة :</h3>

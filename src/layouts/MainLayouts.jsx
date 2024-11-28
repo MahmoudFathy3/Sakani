@@ -22,6 +22,7 @@ const MainLayouts = () => {
     return <Navigate to="/login" replace />;
   }
 
+
   return (
     <div className="container">
       <Helmet>

@@ -134,7 +134,7 @@ const ComplaintsList = () => {
             label="الوحدة"
             options={unitByManagementId?.data?.map((unit) => ({
               id: unit.id,
-              label: unit.unitPrefix,
+              label: `${unit.unitPrefix} - ${unit.unitNumber} - ${unit.unitFloorNumber}`,
             }))}
             setState={setUnitId}
             placeholder="اختار وحدة"
@@ -148,11 +148,19 @@ const ComplaintsList = () => {
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>
-                    {
+                    {`${
                       unitByManagementId?.data?.find(
                         (unit) => unit.id === row.unitId
                       )?.unitPrefix
-                    }
+                    } - ${
+                      unitByManagementId?.data?.find(
+                        (unit) => unit.id === row.unitId
+                      )?.unitNumber
+                    } - ${
+                      unitByManagementId?.data?.find(
+                        (unit) => unit.id === row.unitId
+                      )?.unitFloorNumber
+                    } `}
                   </td>
                   <td>{row.subject}</td>
                   <td>

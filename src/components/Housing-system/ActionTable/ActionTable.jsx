@@ -4,7 +4,13 @@ import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline, MdOutlineVisibility } from "react-icons/md";
 import PropTypes from "prop-types";
 
-const ActionTable = ({ detailsItem, editItem, deleteItem, hide }) => {
+const ActionTable = ({
+  detailsItem,
+  editItem,
+  deleteItem,
+  hide,
+  hideDelete,
+}) => {
   return (
     <div className={styles.ActionButtons}>
       {!hide && (
@@ -15,9 +21,11 @@ const ActionTable = ({ detailsItem, editItem, deleteItem, hide }) => {
       <IconButton onClick={editItem}>
         <CiEdit size={25} color="darkgreen" />
       </IconButton>
-      <IconButton onClick={deleteItem}>
-        <MdDeleteOutline size={25} color="brown" />
-      </IconButton>
+      {!hideDelete && (
+        <IconButton onClick={deleteItem}>
+          <MdDeleteOutline size={25} color="brown" />
+        </IconButton>
+      )}
     </div>
   );
 };
@@ -27,5 +35,6 @@ ActionTable.propTypes = {
   editItem: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
   hide: PropTypes.bool,
+  hideDelete: PropTypes.bool,
 };
 export default ActionTable;

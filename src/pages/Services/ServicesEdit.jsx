@@ -4,7 +4,12 @@ import { updateService } from "@store/reducers/Service/ServiceSlice";
 import { CheckRoles } from "@utils/CheckRoles";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useLocation, useNavigate, useOutletContext } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useOutletContext,
+} from "react-router-dom";
 
 const ServicesEdit = () => {
   const { state } = useLocation();
@@ -22,10 +27,9 @@ const ServicesEdit = () => {
       });
   };
 
-    if (!CheckRoles("ManagementOwner")) {
-      return <Navigate to={"*"} replace />;
-    }
-
+  if (!CheckRoles("ManagementOwner")) {
+    return <Navigate to={"*"} replace />;
+  }
 
   return (
     <section>

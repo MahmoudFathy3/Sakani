@@ -28,9 +28,9 @@ const ServicesList = () => {
   const { complexes } = useSelector((state) => state.complexes);
 
   useEffect(() => {
-    dispatch(fetchServices());
-    dispatch(fetchComplexes());
-  }, [dispatch]);
+    dispatch(fetchServices(page));
+    dispatch(fetchComplexes(0));
+  }, [dispatch, page]);
 
   const detailsItem = (item) => {
     navigate(`/services/list/${item.id}/details`, {
@@ -52,6 +52,7 @@ const ServicesList = () => {
         setSuccess("تم الحذف بنجاح");
       });
   };
+  console.log(services);
 
   useEffect(() => {
     if (success) {

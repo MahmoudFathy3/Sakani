@@ -12,6 +12,7 @@ export const ColumnComplexes = [
 export const ColumnUsers = [
   "#",
   "اسم المستخدم",
+  "الاسم بالكامل",
   "الحالة",
   "الحدث",
 ];
@@ -57,6 +58,7 @@ export const ColumnInvoices = [
   "الوصف",
   "نوع الفاتورة",
   "تاريخ الفاتورة",
+  "حالة الفاتورة",
   "السعر",
   "الحدث",
 ];

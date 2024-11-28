@@ -75,6 +75,7 @@ const FormServices = ({ onSubmit, reset, service, edit, isLoading }) => {
             { id: 1, label: "ايقاف" },
             { id: 2, label: "تشغيل" },
           ]}
+          defaultValue={service?.isActive ? "تشغيل" : "ايقاف"}
         />
       </div>
       <FormButtons

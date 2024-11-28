@@ -44,7 +44,7 @@ const UnitForComplexe = ({
       options={
         unitByManagementId?.data?.map((unit) => ({
           id: unit.id,
-          label: unit.unitPrefix,
+          label: `${unit.unitPrefix} - ${unit.unitNumber} - ${unit.unitFloorNumber}`,
         })) || []
       }
       setState={setValue}

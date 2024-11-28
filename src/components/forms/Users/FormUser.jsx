@@ -19,7 +19,7 @@ import Status from "@components/Housing-system/Select/Shared/Status/Status";
 import Complexe from "@components/Housing-system/Select/Shared/Complexe/Complexe";
 
 const FormUser = ({ onSubmit, reset, data, edit, isLoading }) => {
-  const [statusId, setStatusID] = useState("");
+  const [statusId, setStatusID] = useState(data?.status || "");
   const [unitsId, setUnitsID] = useState([]);
   const [rolesId, setRolesID] = useState("");
   const [complexeId, setComplexeID] = useState("");
@@ -43,7 +43,7 @@ const FormUser = ({ onSubmit, reset, data, edit, isLoading }) => {
       Username: data2.Username || data.username,
       FullName: data2.FullName,
       PhoneNumber: data2.PhoneNumber,
-      Status: statusId >= 0 ? statusId : data.status,
+      Status: statusId >= 0 && statusId,
     };
 
     if (rolesId?.label || data2.Roles)
@@ -112,7 +112,7 @@ const FormUser = ({ onSubmit, reset, data, edit, isLoading }) => {
                 options={
                   unitByManagementId?.data?.map((unit) => ({
                     id: unit.id,
-                    label: unit.unitPrefix,
+                    label: `${unit.unitPrefix} - ${unit.unitNumber} - ${unit.unitFloorNumber}`,
                   })) || []
                 }
                 filterSelectedOptions={true}
@@ -146,7 +146,7 @@ const FormUser = ({ onSubmit, reset, data, edit, isLoading }) => {
             label: role,
           }))}
           required={false}
-          defaultValue={data?.roles[0]}
+          defaultValue={data?.roles?.length > 0 && data?.roles[0]}
           setState={setRolesID}
         />
 
@@ -159,7 +159,11 @@ const FormUser = ({ onSubmit, reset, data, edit, isLoading }) => {
           defaultValue={data?.password}
         />
 
-        <Status setStatusID={setStatusID} required={edit ? false : true} />
+        <Status
+          setStatusID={setStatusID}
+          // required={edit ? false : true}
+          defaultValue={data?.status}
+        />
 
         <FormControlls
           id="Image"

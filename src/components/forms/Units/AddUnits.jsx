@@ -1,7 +1,6 @@
 import styles from "@styles/forms.module.css";
 import PropTypes from "prop-types";
 import { Box } from "@mui/material";
-import Select from "@components/Housing-system/Select/Select";
 import FormControlls from "@components/Housing-system/FormControlls/FormControlls";
 import FormButtons from "@components/Housing-system/FormButtons/FormButtons";
 import { onReset } from "@utils/onReset";
@@ -15,7 +14,7 @@ import Complexe from "@components/Housing-system/Select/Shared/Complexe/Complexe
 
 const AddUnits = ({ onSubmit, data, reset, edit, isLoading }) => {
   const [building_id, setBuildingId] = useState("");
-  const [complexe_id, setComplexeId] = useState(data?.buildingId || "");
+  const [complexe_id, setComplexeId] = useState(data?.managementId || "");
   const [unitType_id, setUnitTypeId] = useState("");
   const [unitRole_id, setUnitRoleId] = useState("");
   const [unitStatus_id, setUnitStatusId] = useState("");
@@ -52,28 +51,32 @@ const AddUnits = ({ onSubmit, data, reset, edit, isLoading }) => {
   return (
     <Box component={"form"} onSubmit={handlerSumbit} className={styles.form}>
       <div className={styles.form_wapper}>
-        <Complexe
-          id="managmentId"
-          label="اسم المجمع"
-          setState={setComplexeId}
-          defaultValue={data?.buildingId}
-        />
+        {!edit && (
+          <>
+            <Complexe
+              id="managmentId"
+              label="اسم المجمع"
+              setState={setComplexeId}
+              defaultValue={data?.managementId}
+            />
 
-        <BuildingForComplexe
-          id="unitPrefix"
-          label="اسم المبني"
-          complexe_id={complexe_id}
-          defaultValue={data?.buildingId}
-          setState={setBuildingId}
-        />
-        <FormControlls
-          id="unitNumber"
-          label="رقم الوحدة"
-          type="number"
-          fullWidth
-          required={true}
-          defaultValue={data?.unitNumber}
-        />
+            <BuildingForComplexe
+              id="unitPrefix"
+              label="اسم المبني"
+              complexe_id={complexe_id}
+              defaultValue={data?.buildingId}
+              setState={setBuildingId}
+            />
+            <FormControlls
+              id="unitNumber"
+              label="رقم الوحدة"
+              type="number"
+              fullWidth
+              required={true}
+              defaultValue={data?.unitNumber}
+            />
+          </>
+        )}
         <UnitType setStateID={setUnitTypeId} defaultValue={data?.unitType} />
         <UnitRole
           id={"unitRole"}
@@ -125,7 +128,7 @@ const AddUnits = ({ onSubmit, data, reset, edit, isLoading }) => {
           type="date"
           fullWidth
           required={true}
-          defaultValue={data.unitSoldDate.slice(0, 10)}
+          defaultValue={new Date().toISOString().slice(0, 10)}
         />
       </div>
       <FormButtons
